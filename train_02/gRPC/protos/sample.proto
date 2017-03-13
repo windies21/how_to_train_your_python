@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+// The greeting service definition.
+service Trainer {
+    // Sends a greeting
+    rpc Train (TrainRequest) returns (TrainReply) {}
+}
+
+// The request message containing the user's name.
+message TrainRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message TrainReply {
+    string message = 1;
+}
