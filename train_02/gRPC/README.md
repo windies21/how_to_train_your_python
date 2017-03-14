@@ -10,4 +10,5 @@ python generate_code.py
 
 # run
 server $python server.py
+
 client $python client.py
