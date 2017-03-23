@@ -34,7 +34,9 @@ class Listener(train_grpc.ListenerServicer):
 
     def getList(self, request, context):
         items = '|'.join(self.members)
+        print("Send items: " + items)
         return train.ListReply(items=items)
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

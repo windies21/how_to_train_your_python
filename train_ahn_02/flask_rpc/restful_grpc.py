@@ -4,50 +4,56 @@ import grpc
 import train02_pb2_grpc
 import train02_pb2
 
-app = Flask(__name__)
-api = Api(app)
+
+def connect(host, port):
+    channel = grpc.insecure_channel("{0}:{1}".format(host, port))
+    stub = train02_pb2_grpc.ListenerStub(channel)
+    return stub
 
 
-class ListenerGetList(Resource):
-    def post(self):
-        """ return user list """
-        channel = grpc.insecure_channel("localhost:58802")
-        stub = train02_pb2_grpc.ListenerStub(channel)
+class FlaskServiceSampler:
+    def __init__(self):
+        self.app = Flask(__name__)
+        self.api = Api(self.app)
 
-        response = stub.getList(train02_pb2.ListRequest())
-        items = response.items.split('|')
-        return {"users": items, "response": 1} if items else {"users": [], "response": 0}
+        self.api.add_resource(self.ListenerGetList, '/')
+        self.api.add_resource(self.ListenerAddUser, '/add/<username>')
+        self.api.add_resource(self.ListenerDelUser, '/del/<username>')
+        self.api.add_resource(self.ListenerNoUser, '/add', '/del', '/add/', '/del/')
 
+    def run(self):
+        self.app.run(debug=True)
 
-class ListenerAddUser(Resource):
-    def post(self, username):
-        """ add user """
-        channel = grpc.insecure_channel("localhost:58802")
-        stub = train02_pb2_grpc.ListenerStub(channel)
+    class ListenerGetList(Resource):
+        def get(self):
+            """ return user list """
+            stub = connect("localhost", "58802")
 
-        response = stub.Listen(train02_pb2.ListenerRequest(request="add", name=username))
-        return {"message": response.message, "name": response.name, "response": response.response}
+            response = stub.getList(train02_pb2.ListRequest())
+            items = response.items.split('|')
+            return {"users": items, "response": 1} if len(items) > 0 else {"users": [], "response": 0}
 
+    class ListenerAddUser(Resource):
+        def get(self, username):
+            """ add user """
+            stub = connect("localhost", "58802")
 
-class ListenerDelUser(Resource):
-    def post(self, username):
-        """ delete user """
-        channel = grpc.insecure_channel("localhost:58802")
-        stub = train02_pb2_grpc.ListenerStub(channel)
+            response = stub.Listen(train02_pb2.ListenerRequest(request="add", name=username))
+            return {"message": response.message, "name": response.name, "response": response.response}
 
-        response = stub.Listen(train02_pb2.ListenerRequest(request="del", name=username))
-        return {"message": response.message, "name": response.name, "response": response.response}
+    class ListenerDelUser(Resource):
+        def get(self, username):
+            """ delete user """
+            stub = connect("localhost", "58802")
 
+            response = stub.Listen(train02_pb2.ListenerRequest(request="del", name=username))
+            return {"message": response.message, "name": response.name, "response": response.response}
 
-class ListenerNoUser(Resource):
-    def post(self):
-        return {"message": "username required.", "response": 0}
-
-api.add_resource(ListenerGetList, '/')
-api.add_resource(ListenerAddUser, '/add/<username>')
-api.add_resource(ListenerDelUser, '/del/<username>')
-api.add_resource(ListenerNoUser, '/add', '/del', '/add/', '/del/')
+    class ListenerNoUser(Resource):
+        def post(self):
+            return {"message": "username required.", "response": 0}
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    service = FlaskServiceSampler()
+    service.run()
