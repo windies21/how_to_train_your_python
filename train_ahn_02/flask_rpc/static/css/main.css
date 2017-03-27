@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #444;
+}
+
+header {
+    background-color: #2B2B2B;
+    height: 35px;
+    width: 100%;
+    opacity: .9;
+    margin-bottom: 10px;
+}
+
+header h1.logo {
+    margin: 0;
+    font-size: 1.7em;
+    color: #ffffff;
+    /*text-transform: uppercase;*/
+    float: left;
+}
+
+header h1.logo:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+div.jumbo {
+    padding: 0px 0 0px 0;
+    background-color: #EEE;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+h2 {
+    font-size: 24px;
+    /*margin-top: 20px;*/
+    text-align: center;
+    letter-spacing: -2px;
+}
+

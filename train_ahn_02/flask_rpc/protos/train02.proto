@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+service Listener {
+    rpc Listen(ListenerRequest) returns (ListenerReply) {}
+    rpc getList(ListRequest) returns (ListReply) {}
+}
+
+message ListenerRequest {
+    string request = 1;
+    string name = 2;
+}
+
+message ListenerReply {
+    string name = 1;
+    enum Response {
+        FAIL = 0;
+        SUCCESS = 1;
+    }
+    Response response = 2;
+    string message = 3;
+}
+
+message ListRequest {
+
+}
+
+message ListReply {
+    string items = 1;
+}
