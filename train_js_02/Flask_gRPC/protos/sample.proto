@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+service Poster {
+    // 게시물 등록
+    rpc AddPost (AddRequest) returns (PostReply) {}
+    // 게시물 리스트 가져오기
+    rpc GetPosts (ListRequest) returns (stream Post) {}
+}
+
+// 제목과 내용을 포함
+message Post {
+    string title = 1;
+    string text = 2;
+}
+
+// 게시물을 등록하기 위한 메시지
+message AddRequest {
+    Post post = 1;
+}
+
+// 리스트를 불러오기 위한 메시지
+message ListRequest {
+
+}
+
+// 게시물 등록 response
+message PostReply {
+    string message = 1;
+}
