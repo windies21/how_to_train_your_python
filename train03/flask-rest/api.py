@@ -6,7 +6,7 @@ api = Api(app)
 
 TODOS = {
     'todo1': {'task': 'build an API'},
-    'todo2': {'task': '?????'},
+    'todo2': {'task': '예진'},
     'todo3': {'task': 'profit!'},
 }
 
@@ -47,6 +47,7 @@ class TodoList(Resource):
 
     def post(self):
         args = parser.parse_args()
+        print("parsed args: " + str(args))
         todo_id = int(max(TODOS.keys()).lstrip('todo')) + 1
         todo_id = 'todo%i' % todo_id
         TODOS[todo_id] = {'task': args['task']}
