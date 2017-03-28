@@ -9,6 +9,10 @@ learn, test, run your python
  * more 15 minutes about computer programing  
     https://docs.google.com/presentation/d/1dSiXlXrViJf-7D9dbWruhhWdcCoRfiubXBIIH5cNmMw/edit?usp=sharing
 
+# before train 03
+ * understanding REST API
+    https://docs.google.com/presentation/d/1Ma7a9cHXNKnQj-QcOxsoxt1wo6QfdahGRabo97wEe4I/edit?usp=sharing
+
 # setup
 pip3 install virtualenv
 
