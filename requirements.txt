@@ -3,3 +3,6 @@ Flask-RESTful
 grpcio == 1.1.0
 grpcio-tools == 1.1.0
 protobuf>=3.2.0
+yappi
+requests
+coloredlogs
