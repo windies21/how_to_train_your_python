@@ -12,6 +12,10 @@ learn, test, run your python
 # before train 03
  * understanding REST API
     https://docs.google.com/presentation/d/1Ma7a9cHXNKnQj-QcOxsoxt1wo6QfdahGRabo97wEe4I/edit?usp=sharing
+ 
+# before train 04
+ * high performance python
+    https://docs.google.com/presentation/d/1nwpHR3kQB_cZbhE3ek9PGcNqys5CrXM6QnuBwfM25X8/edit?usp=sharing
 
 # setup
 pip3 install virtualenv
